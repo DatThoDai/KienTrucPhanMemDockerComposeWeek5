@@ -1,0 +1,27 @@
+services:
+  flask1:
+    build: .
+    environment:
+      - HOSTNAME=flask1
+    networks:
+      - flask-network
+  flask2:
+    build: .
+    environment:
+      - HOSTNAME=flask2
+    networks:
+      - flask-network
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - flask1
+      - flask2
+    networks:
+      - flask-network
+networks:
+  flask-network:
+    driver: bridge

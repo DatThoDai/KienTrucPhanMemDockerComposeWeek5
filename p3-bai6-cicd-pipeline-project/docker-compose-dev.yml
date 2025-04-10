@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    volumes:
+      - ./app:/app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+  tests:
+    build: .
+    volumes:
+      - ./app:/app
+    entrypoint: ["pytest", "test_app.py"]
+    depends_on:
+      - app

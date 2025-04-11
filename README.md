@@ -75,3 +75,40 @@
 ![image](https://github.com/user-attachments/assets/eaf90bc4-faf9-4e4e-96e3-c451fe3a7502)
 
 ![image](https://github.com/user-attachments/assets/389e4ea0-9ea9-4340-8493-4c176664fd6f)
+
+<h1>Phần 3: Docker Compose file</h1>
+<h1>Bài 1</h1>
+
+![image](https://github.com/user-attachments/assets/11c4be1c-4861-45d1-8bc5-f6e00e32a9af)
+
+<h1>Bài 2</h1>
+
+![image](https://github.com/user-attachments/assets/23325805-3905-44ce-bad7-093cd2a6a40c)
+
+<h1>Bài 3</h1>
+
+![image](https://github.com/user-attachments/assets/9464d81f-70f9-4db4-bdb3-de5886c11056)
+
+<h1>Bài 4</h1>
+
+![image](https://github.com/user-attachments/assets/1e9a3442-07c3-4e17-bbee-8082cdabfef6)
+
+<h1>Bài 5</h1>
+
+![image](https://github.com/user-attachments/assets/c02bfc85-5e23-4220-90be-a72b8e9be661)
+
+![image](https://github.com/user-attachments/assets/831ee55d-4640-45e0-803b-32eede7b48d1)
+
+<h1>Bài 6</h1>
+
+![image](https://github.com/user-attachments/assets/66a033cc-44d9-480f-a31b-5f8ba9d89e3f)
+
+![image](https://github.com/user-attachments/assets/7679ab24-dd26-47ca-b179-8e2d3d10e54b)
+
+<h1>Bài 7</h1>
+
+![image](https://github.com/user-attachments/assets/14ac028e-39c6-4312-9852-f644c81ac9fa)
+
+<h1>Bài 8</h1>
+
+![image](https://github.com/user-attachments/assets/651de313-903a-487a-af28-ecbe2b5f0452)

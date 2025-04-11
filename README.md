@@ -111,4 +111,5 @@
 
 <h1>Bài 8</h1>
 
-![image](https://github.com/user-attachments/assets/651de313-903a-487a-af28-ecbe2b5f0452)
+![image](https://github.com/user-attachments/assets/42d8e458-4cb4-466b-bda9-8289117bd3cd)
+

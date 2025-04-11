@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"  # Port cho dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/etc/traefik/traefik.yml
+    networks:
+      - traefik_network
+
+  flask:
+    image: python:3.10-slim
+    container_name: flask
+    command: >
+      sh -c "pip install flask &&
+             echo 'from flask import Flask
+             app = Flask(__name__)
+             @app.route(\"/\")
+             def hello():
+                 return \"Hello from Flask!\"
+             if __name__ == \"__main__\":
+                 app.run(host=\"0.0.0.0\", port=5000)' > app.py &&
+             python app.py"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.flask.rule=Host(`flask.localhost`)"
+      - "traefik.http.routers.flask.entrypoints=web"
+      - "traefik.http.services.flask.loadbalancer.server.port=5000"
+    networks:
+      - traefik_network
+
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress
+    environment:
+      - WORDPRESS_DB_HOST=wordpress-db
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=secure_password
+      - WORDPRESS_DB_NAME=wordpress
+    depends_on:
+      - wordpress-db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wordpress.rule=Host(`wordpress.localhost`)"
+      - "traefik.http.routers.wordpress.entrypoints=web"
+      - "traefik.http.services.wordpress.loadbalancer.server.port=80"
+    networks:
+      - traefik_network
+
+  wordpress-db:
+    image: mariadb:10.11
+    container_name: wordpress-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=secure_root_password
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=secure_password
+    volumes:
+      - wordpress_db_data:/var/lib/mysql
+    networks:
+      - traefik_network
+
+volumes:
+  wordpress_db_data:
+
+networks:
+  traefik_network:
+    driver: bridge

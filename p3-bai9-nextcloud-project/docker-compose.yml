@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  nextcloud:
+    image: nextcloud:latest
+    container_name: nextcloud
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - MYSQL_HOST=nextcloud-db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=secure_password
+      - REDIS_HOST=nextcloud-redis
+    depends_on:
+      - nextcloud-db
+      - nextcloud-redis
+    volumes:
+      - nextcloud_data:/var/www/html
+    networks:
+      - nextcloud_network
+
+  nextcloud-db:
+    image: mariadb:10.11
+    container_name: nextcloud-db
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --innodb_read_only_compressed=OFF
+    environment:
+      - MYSQL_ROOT_PASSWORD=secure_root_password
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=secure_password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - nextcloud_network
+
+  nextcloud-redis:
+    image: redis:alpine
+    container_name: nextcloud-redis
+    restart: unless-stopped
+    command: redis-server --requirepass redis_password
+    volumes:
+      - redis_data:/data
+    networks:
+      - nextcloud_network
+
+volumes:
+  nextcloud_data:
+  db_data:
+  redis_data:
+
+networks:
+  nextcloud_network:
+    driver: bridge
